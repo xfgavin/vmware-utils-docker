@@ -42,12 +42,9 @@ python3-setuptools \
 python3-dev \
 python3-pip \
 python3-virtualenv \
-#ruby-full \
 make \
 unzip \
-#gem \
 software-properties-common \
-#default-jre \
 iputils-ping \
 module-init-tools \
 curl \
