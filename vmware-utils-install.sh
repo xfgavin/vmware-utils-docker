@@ -18,7 +18,7 @@ export TZ=America/Los_Angeles
 #### ---- Install Package Dependencies ---- ####
 
 apt-get -qq update && \
-apt-get install -qq -yq apt-utils \
+apt-get install -qq -yq apt-utils && \
 apt-get install -qq -yq --no-install-recommends \
 build-essential \
 gcc \
