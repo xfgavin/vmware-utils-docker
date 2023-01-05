@@ -13,10 +13,12 @@ VSPHERE65_MGMT_SDK=VMware-vSphereSDK-6.5.0-4571253.zip
 #VDDK65=VMware-vix-disklib-6.5.0-4604867.x86_64.tar.gz
 OVFTOOL=VMware-ovftool-4.5.0-20459872-lin.x86_64.zip
 
+export TZ=America/Los_Angeles
+
 #### ---- Install Package Dependencies ---- ####
 
-apt-get update && \
-apt-get install -yq --no-install-recommends \
+apt-get -qq update && \
+apt-get install -qq -yq --no-install-recommends \
 build-essential \
 gcc \
 gcc-multilib \
@@ -53,7 +55,7 @@ libunwind8 \
 libicu55 \
 wget \
 vim && \
-apt-get clean && \
+apt-get -qq clean && \
 rm -rf /var/lib/apt/lists/* /var/tmp/*
 
 #gem install savon
@@ -185,10 +187,10 @@ git clone https://github.com/lamw/pyvmomi-community-samples /root-script-repos/p
 
 
 # apt-get remove all shit
-apt-get -y purge build-essential \
+apt-get -qq -y purge build-essential \
 gcc \
 gcc-multilib
 
-apt-get autoremove -y
-apt-get clean
+apt-get -qq autoremove -y
+apt-get -qq clean
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

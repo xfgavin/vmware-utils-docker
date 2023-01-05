@@ -5,6 +5,9 @@ MAINTAINER xfgavin@gmail.com
 # Updated to all vSphere 6.5 tools by @lamw
 WORKDIR /root
 
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=America/Los_Angeles
+
 #### ---- Installer Files ---- ####
 
 #ARG VSPHERE65_SDK_PERL=VMware-vSphere-CLI-6.5.0-4566394.x86_64.tar.gz
