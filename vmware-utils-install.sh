@@ -46,11 +46,10 @@ make \
 unzip \
 software-properties-common \
 iputils-ping \
-module-init-tools \
 curl \
-libcurl3 \
+libcurl4 \
 libunwind8 \
-libicu55 \
+libicu70 \
 wget \
 vim && \
 apt-get -qq clean && \
