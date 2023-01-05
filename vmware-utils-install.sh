@@ -131,6 +131,7 @@ pip install --upgrade git+https://github.com/vmware/vsphere-automation-sdk-pytho
 #/bin/bash /tmp/VMware-ovftool-4.2.0-4586971-lin.x86_64.bundle --eulas-agreed --required --console && \
 # rm -f /tmp/VMware-ovftool-4.2.0-4586971-lin.x86_64.bundle
 unzip /tmp/$OVFTOOL -d /root/
+rm -f /tmp/$OVFTOOL
 #### ---- PowerCLI Core 1.0 ---- ####
 
 wget https://download3.vmware.com/software/vmw-tools/powerclicore/PowerCLI_Core.zip -P /tmp/
