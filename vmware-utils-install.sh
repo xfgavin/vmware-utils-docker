@@ -1,18 +1,17 @@
-
 #### ---- Installer Files ---- ####
 
 VSPHERE65_SDK_PERL=VMware-vSphere-CLI-6.5.0-4566394.x86_64.tar.gz
 VSPHERE65_MGMT_SDK=VMware-vSphereSDK-6.5.0-4571253.zip
-VSPHERE65_AUTOMATION_SDK_RUBY=VMware-vSphere-Automation-SDK-Ruby-6.5.0-4571906.zip
-VSPHERE65_AUTOMATION_SDK_PYTHON=VMware-vSphere-Automation-SDK-Python-6.5.0-4571810.zip
-VSPHERE65_AUTOMATION_SDK_PERL=VMware-vSphere-Automation-SDK-Perl-6.5.0-4571819.zip
-VSPHERE65_AUTOMATION_SDK_JAVA=VMware-vSphere-Automation-SDK-Java-6.5.0-4571808.zip
-VSAN65_SDK_RUBY=vsan-sdk-65-ruby-4602587.zip
-VSAN65_SDK_PYTHON=vsan-sdk-65-python-4602587.zip
-VSAN65_SDK_JAVA=vsan-sdk-65-java-4602587.zip
-VSAN65_SDK_PERL=vsan-sdk-65-perl-4602587.zip
-VDDK65=VMware-vix-disklib-6.5.0-4604867.x86_64.tar.gz
-OVFTOOl42=VMware-ovftool-4.2.0-4586971-lin.x86_64.bundle
+#VSPHERE65_AUTOMATION_SDK_RUBY=VMware-vSphere-Automation-SDK-Ruby-6.5.0-4571906.zip
+#VSPHERE65_AUTOMATION_SDK_PYTHON=VMware-vSphere-Automation-SDK-Python-6.5.0-4571810.zip
+#VSPHERE65_AUTOMATION_SDK_PERL=VMware-vSphere-Automation-SDK-Perl-6.5.0-4571819.zip
+#VSPHERE65_AUTOMATION_SDK_JAVA=VMware-vSphere-Automation-SDK-Java-6.5.0-4571808.zip
+#VSAN65_SDK_RUBY=vsan-sdk-65-ruby-4602587.zip
+#VSAN65_SDK_PYTHON=vsan-sdk-65-python-4602587.zip
+#VSAN65_SDK_JAVA=vsan-sdk-65-java-4602587.zip
+#VSAN65_SDK_PERL=vsan-sdk-65-perl-4602587.zip
+#VDDK65=VMware-vix-disklib-6.5.0-4604867.x86_64.tar.gz
+OVFTOOL=VMware-ovftool-4.5.0-20459872-lin.x86_64.zip
 
 #### ---- Install Package Dependencies ---- ####
 
@@ -43,7 +42,7 @@ python-virtualenv \
 ruby-full \
 make \
 unzip \
-gem \
+#gem \
 software-properties-common \
 default-jre \
 iputils-ping \
@@ -57,29 +56,30 @@ vim && \
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /var/tmp/*
 
-gem install savon
+#gem install savon
 pip install --upgrade pip
+pip install --upgrade setuptools==62.0.0
 
-#### ---- Install vSphere CLI/SDK for Perl 6.5 ---- ####
+##### ---- Install vSphere CLI/SDK for Perl 6.5 ---- ####
+#
+#sed -i '2621,2635d' /tmp/vmware-vsphere-cli-distrib/vmware-install.pl && \
+#/tmp/vmware-vsphere-cli-distrib/vmware-install.pl -d EULA_AGREED=yes && \
+#rm -rf /tmp/vmware-vsphere-cli-distrib/
 
-sed -i '2621,2635d' /tmp/vmware-vsphere-cli-distrib/vmware-install.pl && \
-/tmp/vmware-vsphere-cli-distrib/vmware-install.pl -d EULA_AGREED=yes && \
-rm -rf /tmp/vmware-vsphere-cli-distrib/
-
-#### ---- Install vSphere Automation SDK for Perl 6.5 ---- ####
-
-unzip /tmp/$VSPHERE65_AUTOMATION_SDK_PERL && \
-rm -f /tmp/$VSPHERE65_AUTOMATION_SDK_PERL
-
-#### ---- Install vSphere SDK for Ruby (rbvmomi) 6.5 ---- ####
-
-gem install rbvmomi
-
-#### ---- Install vSphere Automation SDK for Ruby 6.5 ---- ####
-
-mkdir -p /root/VMware-vSphere-Automation-SDK-Ruby-6.5.0 && \
-unzip /tmp/$VSPHERE65_AUTOMATION_SDK_RUBY -d /root/VMware-vSphere-Automation-SDK-Ruby-6.5.0 && \
-rm -f /tmp/$VSPHERE65_AUTOMATION_SDK_RUBY
+##### ---- Install vSphere Automation SDK for Perl 6.5 ---- ####
+#
+#unzip /tmp/$VSPHERE65_AUTOMATION_SDK_PERL && \
+#rm -f /tmp/$VSPHERE65_AUTOMATION_SDK_PERL
+#
+##### ---- Install vSphere SDK for Ruby (rbvmomi) 6.5 ---- ####
+#
+#gem install rbvmomi
+#
+##### ---- Install vSphere Automation SDK for Ruby 6.5 ---- ####
+#
+#mkdir -p /root/VMware-vSphere-Automation-SDK-Ruby-6.5.0 && \
+#unzip /tmp/$VSPHERE65_AUTOMATION_SDK_RUBY -d /root/VMware-vSphere-Automation-SDK-Ruby-6.5.0 && \
+#rm -f /tmp/$VSPHERE65_AUTOMATION_SDK_RUBY
 
 #### ---- Install vSphere SDK for Python (pyvmomi) 6.5 ---- ####
 
@@ -87,49 +87,50 @@ pip install pyvmomi
 
 #### ---- Install vSphere Automation SDK for Python 6.5 ---- ####
 
-unzip /tmp/$VSPHERE65_AUTOMATION_SDK_PYTHON && \
-rm -f /tmp/$VSPHERE65_AUTOMATION_SDK_PYTHON
+pip install --upgrade git+https://github.com/vmware/vsphere-automation-sdk-python.git
+#unzip /tmp/$VSPHERE65_AUTOMATION_SDK_PYTHON && \
+#rm -f /tmp/$VSPHERE65_AUTOMATION_SDK_PYTHON
 
-#### ---- Install vSphere Management SDK for Java 6.5 ---- ####
-
-unzip /tmp/$VSPHERE65_MGMT_SDK && \
-rm -f /tmp/$VSPHERE65_MGMT_SDK && \
-mv /root/SDK /root/vSphere-Management-SDK-6.5
-
-#### ---- Install vSphere Automation SDK for Java 6.5 ---- ####
-
-unzip /tmp/$VSPHERE65_AUTOMATION_SDK_JAVA && \
-rm -f /tmp/$VSPHERE65_AUTOMATION_SDK_JAVA
-
-#### ---- Install VSAN Management SDK for Java 6.5 ---- ####
-
-unzip /tmp/$VSAN65_SDK_JAVA && \
-rm -f /tmp/$VSAN65_SDK_JAVA && \
-cp -rf /root/vsan-sdk-java /root/vSphere-Management-SDK-6.5
-
-#### ---- Install VSAN Management SDK for Perl 6.5 ---- ####
-
-unzip /tmp/$VSAN65_SDK_PERL && \
-rm -f /tmp/$VSAN65_SDK_PERL && \
-cp /root/vsan-sdk-perl/bindings/*.pm /root/vsan-sdk-perl/samplecode
-
-#### ---- Install VSAN Management SDK for Python 6.5 ---- ####
-
-unzip /tmp/$VSAN65_SDK_PYTHON && \
-rm -f /tmp/$VSAN65_SDK_PYTHON && \
-cp /root/vsan-sdk-python/bindings/*.py /root/vsan-sdk-python/samplecode
-
-#### ---- Install VSAN Management SDK for Ruby 6.5 ---- ####
-
-unzip /tmp/$VSAN65_SDK_RUBY && \
-rm -f /tmp/$VSAN65_SDK_RUBY && \
-cp /root/vsan-sdk-ruby/bindings/*.rb /root/vsan-sdk-ruby/samplecode
+##### ---- Install vSphere Management SDK for Java 6.5 ---- ####
+#
+#unzip /tmp/$VSPHERE65_MGMT_SDK && \
+#rm -f /tmp/$VSPHERE65_MGMT_SDK && \
+#mv /root/SDK /root/vSphere-Management-SDK-6.5
+#
+##### ---- Install vSphere Automation SDK for Java 6.5 ---- ####
+#
+#unzip /tmp/$VSPHERE65_AUTOMATION_SDK_JAVA && \
+#rm -f /tmp/$VSPHERE65_AUTOMATION_SDK_JAVA
+#
+##### ---- Install VSAN Management SDK for Java 6.5 ---- ####
+#
+#unzip /tmp/$VSAN65_SDK_JAVA && \
+#rm -f /tmp/$VSAN65_SDK_JAVA && \
+#cp -rf /root/vsan-sdk-java /root/vSphere-Management-SDK-6.5
+#
+##### ---- Install VSAN Management SDK for Perl 6.5 ---- ####
+#
+#unzip /tmp/$VSAN65_SDK_PERL && \
+#rm -f /tmp/$VSAN65_SDK_PERL && \
+#cp /root/vsan-sdk-perl/bindings/*.pm /root/vsan-sdk-perl/samplecode
+#
+##### ---- Install VSAN Management SDK for Python 6.5 ---- ####
+#
+#unzip /tmp/$VSAN65_SDK_PYTHON && \
+#rm -f /tmp/$VSAN65_SDK_PYTHON && \
+#cp /root/vsan-sdk-python/bindings/*.py /root/vsan-sdk-python/samplecode
+#
+##### ---- Install VSAN Management SDK for Ruby 6.5 ---- ####
+#
+#unzip /tmp/$VSAN65_SDK_RUBY && \
+#rm -f /tmp/$VSAN65_SDK_RUBY && \
+#cp /root/vsan-sdk-ruby/bindings/*.rb /root/vsan-sdk-ruby/samplecode
 
 #### ---- Install OVFTool 4.2 ---- ####
 
-/bin/bash /tmp/VMware-ovftool-4.2.0-4586971-lin.x86_64.bundle --eulas-agreed --required --console && \
- rm -f /tmp/VMware-ovftool-4.2.0-4586971-lin.x86_64.bundle
-
+#/bin/bash /tmp/VMware-ovftool-4.2.0-4586971-lin.x86_64.bundle --eulas-agreed --required --console && \
+# rm -f /tmp/VMware-ovftool-4.2.0-4586971-lin.x86_64.bundle
+unzip /tmp/$OVFTOOL -d /root/
 #### ---- PowerCLI Core 1.0 ---- ####
 
 wget https://download3.vmware.com/software/vmw-tools/powerclicore/PowerCLI_Core.zip -P /tmp/
